@@ -1,0 +1,8 @@
+.font{
+    font-family: 'Lora', serif;
+}
+
+.navbg {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
