@@ -1,13 +1,8 @@
 import React from "react";
-import DropBoxConnect from "../components/DropBoxConnect";
+import Form_Lock from "../components/Form_Lock";
 
 const HomePage = () => {
-  return (
-    <div>
-      <h1>Welcome to my homepage!</h1>
-      <DropBoxConnect />
-    </div>
-  );
+  return <><Form_Lock/></>;
 };
 
 export default HomePage;
