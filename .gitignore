@@ -24,3 +24,6 @@ yarn-error.log*
 
 functions
 .env
+
+# Local Netlify folder
+.netlify
