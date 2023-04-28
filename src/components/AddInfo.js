@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 
-function Form_Lock() {
+function AddInfo() {
   return (
     <Container className="mt-5">
       <Form.Text className="text-muted mb-3">
@@ -29,4 +29,4 @@ function Form_Lock() {
   );
 }
 
-export default Form_Lock;
+export default AddInfo;
