@@ -1,8 +1,14 @@
 import React from "react";
-import Form_Lock from "../components/Form_Lock";
+import AddInfo from "../components/AddInfo";
 
-const HomePage = () => {
-  return <><Form_Lock/></>;
+const HomePage = (props) => {
+  return (
+    <>
+      <div>
+        <AddInfo />
+      </div>
+    </>
+  );
 };
 
 export default HomePage;
