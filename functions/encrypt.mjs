@@ -1,10 +1,9 @@
-// const fetch = require("node-fetch");
 import fetch from "node-fetch";
 
 exports.handler = async (event, context) => {
-  const { myParam, myParam2 } = event.queryStringParameters;
+  const { input } = event.queryStringParameters;
   // construct the fetch URL with the id parameter
-  const url = `https://datasain2.pythonanywhere.com/?input=${myParam}&input2=${myParam2}`;
+  const url = `https://datasain2.pythonanywhere.com/?input=${input}`;
   const response = await fetch(url);
 
   if (!response.ok) {
