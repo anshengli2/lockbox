@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 
 exports.handler = async (event, context) => {
-  const { key, header, dataValue } = event.queryStringParameters;
+  const { key, nonce, header, ciphertext, tag } = event.queryStringParameters;
   // construct the fetch URL with the id parameter
-  const url = `https://rexaswq.pythonanywhere.com/encrypt?key=${key}&header=${header}&data=${dataValue}`;
+  const url = `https://rexaswq.pythonanywhere.com/decrypt?key=${key}&nonce=${nonce}&header=${header}&ciphertext=${ciphertext}&tag=${tag}`;
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -19,10 +19,7 @@ exports.handler = async (event, context) => {
 
   // Return the response to the client
   //   {
-  //     nonce: "",
-  //     header: "",
-  //     ciphertext: "",
-  //     tag: "",
+  //     message_decoded: "",
   //   }
   return {
     statusCode: 200,

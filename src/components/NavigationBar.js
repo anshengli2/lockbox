@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
 const LoggedIn = (props) => {
-  if (props.user === "") {
+  if (!props.isLogin) {
     return (
       <>
         <Link className="nav-link font mx-3" to="/Login">
@@ -24,7 +24,7 @@ const LoggedIn = (props) => {
   }
 };
 const CurrentUser = (props) => {
-  if (props.user === "") {
+  if (!props.isLogin) {
     return (
       <>
         <Link className="nav-link font mx-3" to="/Register">
@@ -35,7 +35,9 @@ const CurrentUser = (props) => {
   } else {
     return (
       <>
-        <span className="fw-bold fs-3 font nav-link">{props.user}</span>
+        <span className="fw-bold fs-3 font nav-link">
+          {localStorage.getItem("user")}
+        </span>
       </>
     );
   }
@@ -59,10 +61,10 @@ const NavigationBar = (props) => {
             className="justify-content-end text-center">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <LoggedIn user={props.user} />
+                <LoggedIn isLogin={props.isLogin} />
               </li>
               <li className="nav-item">
-                {props.user && (
+                {props.isLogin && (
                   <>
                     <Link className="nav-link font mx-3" to="/Shamir">
                       <span className="fw-bold fs-3 font">Share</span>
@@ -71,7 +73,7 @@ const NavigationBar = (props) => {
                 )}
               </li>
               <li className="nav-item">
-                <CurrentUser user={props.user} />
+                <CurrentUser isLogin={props.isLogin} />
               </li>
             </ul>
           </Navbar.Collapse>

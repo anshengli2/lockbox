@@ -28,7 +28,7 @@ const Register = () => {
     //   .then((res) => res.json())
     //   .then((data) => {})
     //   .catch(console.log);
-    navigate("/");
+    navigate("/Login");
   };
   return (
     <Container className="mt-5">

@@ -33,7 +33,9 @@ const Login = (props) => {
     //   .catch((error) => {
     //     console.log(error.message);
     //   });
-    props.setUser(inputFields.username);
+    // props.setUser(inputFields.username);
+    localStorage.setItem("user", inputFields.username);
+    props.setLogin(true);
     navigate("/");
   };
   const handleLogOut = () => {
@@ -53,16 +55,25 @@ const Login = (props) => {
     //   .catch((error) => {
     //     console.log(error.message);
     //   });
-    props.setUser("");
+    // props.setUser("");
+    localStorage.removeItem("user");
+    props.setLogin(false);
     navigate("/");
   };
-  if (props.user === "") {
+  if (!localStorage.getItem("user")) {
     return (
       <Container
         className="w-25 profile-content mt-5"
         style={{ minWidth: "28rem" }}>
         <Form className="p-5">
           <Form.Group>
+            <Row>
+              <Container className="d-flex justify-content-center">
+                <span className="font" style={{ fontSize: "2rem" }}>
+                  Login
+                </span>
+              </Container>
+            </Row>
             <Row className="mt-2">
               <Form.Control
                 placeholder="Username"
@@ -79,8 +90,12 @@ const Login = (props) => {
               />
             </Row>
             <Container className="d-flex mt-3 justify-content-center">
-              <Button onClick={handleSubmit} className="btn btn-lg grow">
-                <span className="font fw-bold">Login</span>
+              <Button
+                variant="primary"
+                className="btn btn-lg mt-2 btn-warning text-black grow"
+                onClick={handleSubmit}
+                style={{ width: "32rem" }}>
+                <span className="fs-4 fw-bold font">Continue</span>
               </Button>
             </Container>
           </Form.Group>
