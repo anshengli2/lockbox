@@ -10,15 +10,15 @@ function AddInfo() {
         Please enter the information to protect/store.
       </Form.Text>
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="header">
           <Form.Label>Account Header</Form.Label>
           <Form.Control type="input" placeholder="UTD" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="username">
           <Form.Label>Username</Form.Label>
           <Form.Control type="input" placeholder="bob170005" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="password123" />
         </Form.Group>

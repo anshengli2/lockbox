@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
-import { Container, Form, Button, Row } from "react-bootstrap";
+import React from "react";
+import { Container, Form, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoginGoogle from "../components/LoginGoogle";
-import { gapi } from 'gapi-script';
 
-const CLIENT_ID = "754134333513-v8coo7359ds6v333nf0s9n38j0c16quq.apps.googleusercontent.com"
-const API_KEY = process.env.API_KEY;
-const SCOPES = "https://www.googleapis.com/auth/drive"
+import LogoutGoogle from "../components/LogoutGoogle";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -21,18 +18,6 @@ const Login = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-
-  useEffect(() => {
-    function start() {
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        scope: SCOPES
-      })
-    };
-
-    gapi.load('client:auth2', start);
-  });
 
   const handleSubmit = () => {
     // fetch("http://localhost:3000/login", {
@@ -52,7 +37,7 @@ const Login = (props) => {
     //     console.log(error.message);
     //   });
     // props.setUser(inputFields.username);
-    localStorage.setItem("user", inputFields.username);
+
     props.setLogin(true);
     navigate("/");
   };
@@ -74,11 +59,11 @@ const Login = (props) => {
     //     console.log(error.message);
     //   });
     // props.setUser("");
-    localStorage.removeItem("user");
+
     props.setLogin(false);
     navigate("/");
   };
-  if (!localStorage.getItem("user")) {
+  if (localStorage.getItem("user") === null) {
     return (
       <Container
         className="w-25 profile-content mt-5"
@@ -108,13 +93,10 @@ const Login = (props) => {
               />
             </Row>
             <Container className="d-flex mt-3 justify-content-center">
-              <Button
-                variant="primary"
-                className="btn btn-lg mt-2 btn-warning text-black grow"
-                onClick={handleSubmit}
-                style={{ width: "32rem" }}>
-                <LoginGoogle/>
-              </Button>
+              <LoginGoogle
+                inputFields={inputFields}
+                setLogin={props.setLogin}
+              />
             </Container>
           </Form.Group>
         </Form>
@@ -123,9 +105,7 @@ const Login = (props) => {
   } else {
     return (
       <Container className="d-flex mt-3 justify-content-center">
-        <Button onClick={handleLogOut} className="btn btn-lg grow">
-          <span className="font fw-bold">Log out</span>
-        </Button>
+        <LogoutGoogle setLogin={props.setLogin} />
       </Container>
     );
   }

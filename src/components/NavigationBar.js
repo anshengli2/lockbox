@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
-const LoggedIn = (props) => {
-  if (!props.isLogin) {
+const LoggedIn = () => {
+  if (localStorage.getItem("user") === null) {
     return (
       <>
         <Link className="nav-link font mx-3" to="/Login">
@@ -23,8 +23,8 @@ const LoggedIn = (props) => {
     );
   }
 };
-const CurrentUser = (props) => {
-  if (!props.isLogin) {
+const CurrentUser = () => {
+  if (localStorage.getItem("user") === null) {
     return (
       <>
         <Link className="nav-link font mx-3" to="/Register">
@@ -64,7 +64,7 @@ const NavigationBar = (props) => {
                 <LoggedIn isLogin={props.isLogin} />
               </li>
               <li className="nav-item">
-                {props.isLogin && (
+                {localStorage.getItem("user") !== null && (
                   <>
                     <Link className="nav-link font mx-3" to="/Shamir">
                       <span className="fw-bold fs-3 font">Share</span>
@@ -73,7 +73,7 @@ const NavigationBar = (props) => {
                 )}
               </li>
               <li className="nav-item">
-                <CurrentUser isLogin={props.isLogin} />
+                <CurrentUser />
               </li>
             </ul>
           </Navbar.Collapse>

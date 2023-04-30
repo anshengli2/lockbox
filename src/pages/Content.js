@@ -1,7 +1,7 @@
 import React from "react";
 import AddInfo from "../components/AddInfo";
 
-const HomePage = () => {
+const Content = () => {
   // const [data, setData] = useState(null);
   // useEffect(() => {
   //   async function fetchSample() {
@@ -34,4 +34,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Content;
