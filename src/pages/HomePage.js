@@ -30,15 +30,7 @@ const HomePage = (props) => {
       <div>
         <AddInfo />
         <button onClick={handleClick}>Click</button>
-        <div>
-          data ={" "}
-          {data && (
-            <p>
-              {data.data} {data.data2}
-            </p>
-          )}{" "}
-          {!data && <p>no data</p>}
-        </div>
+        <div>data ={process.env.REACT_APP_DROPBOX_API_KEY}</div>
       </div>
     </>
   );
