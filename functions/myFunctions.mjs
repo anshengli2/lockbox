@@ -2,7 +2,9 @@
 import fetch from "node-fetch";
 
 exports.handler = async (event, context) => {
-  const response = await fetch("https://v2.jokeapi.dev/joke/Any");
+  const response = await fetch(
+    "https://datasain2.pythonanywhere.com/?input=aaaaa"
+  );
 
   if (!response.ok) {
     // Handle any errors from the API

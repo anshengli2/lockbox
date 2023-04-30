@@ -3,18 +3,25 @@ import AddInfo from "../components/AddInfo";
 
 const HomePage = (props) => {
   const [data, setData] = useState(null);
-  useEffect(() => {
-    async function fetchSample() {
-      const response = await fetch("/.netlify/functions/test");
-      const data = await response.text();
-      console.log(data);
-      setData(data);
-    }
+  // useEffect(() => {
+  //   async function fetchSample() {
+  //     const response = await fetch("/.netlify/functions/myFunctions");
+  //     const data = await response.text();
+  //     console.log(data);
+  //     // setData(data);
+  //   }
 
-    fetchSample();
-  }, []);
+  //   fetchSample();
+  // }, []);
   const handleClick = () => {
-    fetch("/.netlify/functions/test")
+    const myParam = "hello";
+    const myParam2 = "hello2";
+    // const options = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ param: myParam }),
+    // };
+    fetch(`/.netlify/functions/test?myParam=${myParam}&myParam2=${myParam2}`)
       .then((response) => response.text())
       .then((data) => setData(JSON.parse(data)));
   };
@@ -24,7 +31,13 @@ const HomePage = (props) => {
         <AddInfo />
         <button onClick={handleClick}>Click</button>
         <div>
-          data = {data && <p>{data.joke}</p>} {!data && <p>no data</p>}
+          data ={" "}
+          {data && (
+            <p>
+              {data.data} {data.data2}
+            </p>
+          )}{" "}
+          {!data && <p>no data</p>}
         </div>
       </div>
     </>

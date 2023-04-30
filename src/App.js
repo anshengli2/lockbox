@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import NavigationBar from "./components/NavigationBar";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Shamir from "./pages/Shamir";
 import { useState } from "react";
 function App() {
   const [user, setUser] = useState("");
@@ -17,6 +18,7 @@ function App() {
           path="/Login"
           element={<Login user={user} setUser={setUser} />}
         />
+        <Route path="/Shamir" element={<Shamir setUser={setUser} />} />
       </Routes>
     </Router>
   );
