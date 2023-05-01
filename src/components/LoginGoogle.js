@@ -2,13 +2,20 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import "../styles/theme.css";
 function LoginGoogle(props) {
   const navigate = useNavigate();
   const onSuccess = (res) => {
-    console.log(res, ": Login successful, Current user: ", res.profileObj);
-    localStorage.setItem("user", props.inputFields.username);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        username: props.inputFields.username,
+        key: res.profileObj.googleId,
+      })
+    );
+    console.log(localStorage.getItem("user"));
     props.setLogin(true);
-    navigate("/");
+    navigate("/Content");
   };
   const onFailure = (res) => console.log(res, ": Login failure");
   return (

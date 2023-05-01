@@ -36,7 +36,7 @@ const CurrentUser = () => {
     return (
       <>
         <span className="fw-bold fs-3 font nav-link">
-          {localStorage.getItem("user")}
+          {JSON.parse(localStorage.getItem("user")).username}
         </span>
       </>
     );
@@ -61,7 +61,13 @@ const NavigationBar = (props) => {
             className="justify-content-end text-center">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <LoggedIn isLogin={props.isLogin} />
+                {localStorage.getItem("user") !== null && (
+                  <>
+                    <Link className="nav-link font mx-3" to="/Content">
+                      <span className="fw-bold fs-3 font">Storage</span>
+                    </Link>
+                  </>
+                )}
               </li>
               <li className="nav-item">
                 {localStorage.getItem("user") !== null && (
@@ -71,6 +77,9 @@ const NavigationBar = (props) => {
                     </Link>
                   </>
                 )}
+              </li>
+              <li className="nav-item">
+                <LoggedIn isLogin={props.isLogin} />
               </li>
               <li className="nav-item">
                 <CurrentUser />

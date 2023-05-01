@@ -4,9 +4,11 @@ import NavigationBar from "./components/NavigationBar";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Shamir from "./pages/Shamir";
+import Content from "./pages/Content";
 import { useState } from "react";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
+import FileInfo from "./pages/FileInfo";
 
 function App() {
   const [isLogin, setLogin] = useState(false);
@@ -23,7 +25,7 @@ function App() {
       });
     }
     gapi.load("client:auth2", start);
-  });
+  }, []);
 
   return (
     <Router>
@@ -33,6 +35,8 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login setLogin={setLogin} />} />
         <Route path="/Shamir" element={<Shamir />} />
+        <Route path="/Content" element={<Content />} />
+        <Route path="/FileInfo" element={<FileInfo />} />
       </Routes>
     </Router>
   );
