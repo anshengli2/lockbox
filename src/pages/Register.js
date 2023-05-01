@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../styles/theme.css";
 const Register = () => {
   const [inputFields, setInputFields] = useState({
-    id: "",
     username: "",
-    pwd: "",
+    password: "",
   });
-
+  const [privateKey, setPrivateKey] = useState("");
+  const [data, setData] = useState(null);
   const updateData = (e) => {
     setInputFields({
       ...inputFields,
@@ -18,17 +18,20 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const handleContinue = () => {
+    fetch(`/.netlify/functions/generatePrivKey?input=${inputFields.password}`)
+      .then((response) => response.text())
+      .then((data) => setPrivateKey(JSON.parse(data).data));
+  };
+
   const handleSubmit = () => {
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(inputFields),
-    // };
-    // fetch("http://localhost:3000/register", requestOptions)
-    //   .then((res) => res.json())
-    //   .then((data) => {})
-    //   .catch(console.log);
-    navigate("/Login");
+    fetch(
+      `/.netlify/functions/createUser?username=${inputFields.username}&password=${inputFields.password}&privatekey=${privateKey}`
+    )
+      .then((response) => response.text())
+      .then((data) => setData(data));
+    console.log(inputFields.username, inputFields.password, privateKey);
+    // navigate("/Login");
   };
   return (
     <Container className="mt-5">
@@ -49,7 +52,7 @@ const Register = () => {
             <Col>
               <Form.Control
                 placeholder="Password"
-                name="pwd"
+                name="password"
                 type="password"
                 onChange={updateData}
               />
@@ -58,13 +61,24 @@ const Register = () => {
         </Form.Group>
         <hr />
         <div className="d-flex justify-content-center mb-5">
-          <Button
-            size="lg"
-            variant="warning"
-            onClick={handleSubmit}
-            className="grow w-25">
-            <span className="font fw-bold">Submit</span>
-          </Button>
+          {(!privateKey && (
+            <Button
+              size="lg"
+              variant="warning"
+              onClick={handleContinue}
+              className="grow w-25">
+              <span className="font fw-bold">Continue</span>
+            </Button>
+          )) ||
+            (privateKey && (
+              <Button
+                size="lg"
+                variant="warning"
+                onClick={handleSubmit}
+                className="grow w-25">
+                <span className="font fw-bold">{privateKey}</span>
+              </Button>
+            ))}
         </div>
       </Form>
     </Container>

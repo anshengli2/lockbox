@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
-const LoggedIn = (props) => {
-  if (!props.isLogin) {
+const LoggedIn = () => {
+  if (localStorage.getItem("user") === null) {
     return (
       <>
         <Link className="nav-link font mx-3" to="/Login">
@@ -23,8 +23,8 @@ const LoggedIn = (props) => {
     );
   }
 };
-const CurrentUser = (props) => {
-  if (!props.isLogin) {
+const CurrentUser = () => {
+  if (localStorage.getItem("user") === null) {
     return (
       <>
         <Link className="nav-link font mx-3" to="/Register">
@@ -36,7 +36,7 @@ const CurrentUser = (props) => {
     return (
       <>
         <span className="fw-bold fs-3 font nav-link">
-          {localStorage.getItem("user")}
+          {JSON.parse(localStorage.getItem("user")).username}
         </span>
       </>
     );
@@ -61,10 +61,16 @@ const NavigationBar = (props) => {
             className="justify-content-end text-center">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <LoggedIn isLogin={props.isLogin} />
+                {localStorage.getItem("user") !== null && (
+                  <>
+                    <Link className="nav-link font mx-3" to="/Content">
+                      <span className="fw-bold fs-3 font">Storage</span>
+                    </Link>
+                  </>
+                )}
               </li>
               <li className="nav-item">
-                {props.isLogin && (
+                {localStorage.getItem("user") !== null && (
                   <>
                     <Link className="nav-link font mx-3" to="/Shamir">
                       <span className="fw-bold fs-3 font">Share</span>
@@ -73,7 +79,10 @@ const NavigationBar = (props) => {
                 )}
               </li>
               <li className="nav-item">
-                <CurrentUser isLogin={props.isLogin} />
+                <LoggedIn isLogin={props.isLogin} />
+              </li>
+              <li className="nav-item">
+                <CurrentUser />
               </li>
             </ul>
           </Navbar.Collapse>
