@@ -4,12 +4,21 @@ import { Container } from "react-bootstrap";
 import "../styles/theme.css";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-
+import { gapi } from "gapi-script";
 const DocumentCard = (props) => {
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    props.delete(props.info.id);
+  const deleteDocument = () => {
+    const accessToken = gapi.auth.getToken().access_token;
+    fetch(`https://www.googleapis.com/drive/v3/files/${props.property.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((response) => console.log(response))
+      // .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
   const handleClick = useCallback(
     () =>
@@ -35,7 +44,7 @@ const DocumentCard = (props) => {
           <i
             className="edit-link bi bi-trash btn-centered fs-2"
             style={{ color: "white" }}
-            onClick={handleSubmit}></i>
+            onClick={deleteDocument}></i>
         </OverlayTrigger>
       </div>
     </Container>

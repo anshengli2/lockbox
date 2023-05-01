@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 
 exports.handler = async (event, context) => {
-  const { key, header, dataValue } = event.queryStringParameters;
+  const { key, header, dataVal } = event.queryStringParameters;
   // construct the fetch URL with the id parameter
-  const url = `https://rexaswq.pythonanywhere.com/encrypt?key=${key}&header=${header}&data=${dataValue}`;
+  const url = `https://rexaswq.pythonanywhere.com/encrypt?key=${key}&header=${header}&data=${dataVal}`;
   const response = await fetch(url);
 
   if (!response.ok) {

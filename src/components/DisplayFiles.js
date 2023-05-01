@@ -20,6 +20,7 @@ const DisplayFiles = (props) => {
         .then(() => {
           if (localStorage.getItem("user") !== null) {
             var accessToken = gapi.auth.getToken().access_token;
+
             fetch("https://www.googleapis.com/drive/v3/files", {
               method: "GET",
               headers: {

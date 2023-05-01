@@ -26,7 +26,9 @@ function AddInfo(props) {
         .then((data) => setPrivateKey(JSON.parse(data).data));
     }
   }, []);
+  const [isUploading, setIsUploading] = useState(false);
   const createFile = async () => {
+    setIsUploading(true);
     try {
       var accessToken = gapi.auth.getToken().access_token;
       const response = await fetch("https://docs.googleapis.com/v1/documents", {
@@ -39,14 +41,13 @@ function AddInfo(props) {
           title: `LockBox:${inputFields.header}`,
         }),
       });
-
       const encrypt_username = await fetch(
-        `/.netlify/functions/encrypt?key=${privateKey}&header=${inputFields.header}&data=${inputFields.username}`
+        `/.netlify/functions/encrypt?key=${privateKey}&header=${inputFields.header}&dataVal=${inputFields.username}`
       );
       const encrypted_username = await encrypt_username.json();
-
+      console.log(encrypted_username);
       const encrypt_password = await fetch(
-        `/.netlify/functions/encrypt?key=${privateKey}&header=${inputFields.header}&data=${inputFields.password}`
+        `/.netlify/functions/encrypt?key=${privateKey}&header=${inputFields.header}&dataVal=${inputFields.password}`
       );
       const encrypted_password = await encrypt_password.json();
 
@@ -73,15 +74,18 @@ function AddInfo(props) {
             ],
           }),
         }
-      );
-      setInputFields({
-        header: "",
-        username: "",
-        password: "",
+      ).then((res) => {
+        setInputFields({
+          header: "",
+          username: "",
+          password: "",
+        });
+        props.setSubmit(props.submit + 1);
       });
-      props.setSubmit(props.submit + 1);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -126,8 +130,12 @@ function AddInfo(props) {
             size="md"
             variant="primary"
             className="grow w-25 "
-            onClick={() => createFile()}>
-            <span className="font fw-bold">Submit</span>
+            onClick={createFile}>
+            {isUploading ? (
+              <span className="font fw-bold">Uploading...</span>
+            ) : (
+              <span className="font fw-bold">Submit</span>
+            )}
           </Button>
         </Container>
       </Form>
