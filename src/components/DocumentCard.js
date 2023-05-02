@@ -68,7 +68,7 @@ const DocumentCard = (props) => {
         style={{ height: "6rem" }}>
         <p
           className="centered font text-shadow ps-5 edit-link"
-          style={{ color: "white" }}
+          style={{ color: "white", fontSize: "21px" }}
           onClick={isShare}>
           {props.property.name}
         </p>

@@ -100,7 +100,7 @@ const ShamirKeys = (props) => {
     return (
       <Container className="bg-tertiary-color p-5 mt-5 mb-5 profile-content font">
         <h1 className="font fw-bold fs-1 mb-2">
-          Decrypt File: {props.properties.property.name.split(":")[1]}
+          Decrypt Shared File: {props.properties.property.name.split(":")[1]}
         </h1>
         <p className="fs-2 mt-3">{message}</p>
         <Row className="g-2 mt-3">
@@ -145,7 +145,7 @@ const ShamirKeys = (props) => {
     return (
       <Container className="bg-tertiary-color p-5 mt-5 mb-5 profile-content font">
         <h1 className="font fw-bold fs-1 mb-2">
-          Decrypt File: {props.properties.property.name.split(":")[1]}
+          Decrypt Shared File: {props.properties.property.name.split(":")[1]}
         </h1>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formKey1" className="mb-3">
@@ -173,7 +173,7 @@ const ShamirKeys = (props) => {
               className="grow w-25 "
               onClick={DecryptKey}>
               {isUploading ? (
-                <span className="font fw-bold">Uploading...</span>
+                <span className="font fw-bold">Generating...</span>
               ) : (
                 <span className="font fw-bold">Submit</span>
               )}

@@ -3,7 +3,7 @@
 }
 
 :root {
-    --primary-color: #5089C6;
+    --primary-color: #31485f;
     --secondary-color: #FFAA4C;
     --tertiary-color: #F7F6F2;
 }
@@ -132,6 +132,10 @@
 
 .text-shadow {
     text-shadow: 3px 3px 3px #000000
+}
+
+.text-tertiary {
+    color: var(--tertiary-color);
 }
 
 .select-menu {

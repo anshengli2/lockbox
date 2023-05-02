@@ -25,13 +25,7 @@ const LoggedIn = () => {
 };
 const CurrentUser = () => {
   if (localStorage.getItem("user") === null) {
-    return (
-      <>
-        <Link className="nav-link font mx-3" to="/Register">
-          Register
-        </Link>
-      </>
-    );
+    return <></>;
   } else {
     return (
       <>
