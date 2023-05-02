@@ -5,11 +5,11 @@ import "../styles/theme.css";
 import DocumentCard from "./DocumentCard";
 const DisplayFiles = (props) => {
   const [files, setFiles] = useState([]);
-  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  const SCOPES = "https://www.googleapis.com/auth/drive";
 
   useEffect(() => {
+    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const SCOPES = "https://www.googleapis.com/auth/drive";
     function start() {
       gapi.client
         .init({

@@ -17,9 +17,41 @@ const DocumentCard = (props) => {
       },
     })
       .then((response) => console.log(response))
-      // .then((data) => console.log(data))
       .catch((error) => console.error(error));
   };
+
+  const isShare = () => {
+    try {
+      const accessToken = gapi.auth.getToken().access_token;
+      fetch(
+        ` https://www.googleapis.com/drive/v3/files/${props.property.id}/permissions`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((response) => {
+        if (response.status === 403) {
+          handleClickShare();
+        } else {
+          handleClick();
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleClickShare = useCallback(
+    () =>
+      navigate(
+        "/Shamir",
+        { state: { info: { property: props.property } } },
+        { replace: true }
+      ),
+    [navigate]
+  );
   const handleClick = useCallback(
     () =>
       navigate(
@@ -37,7 +69,7 @@ const DocumentCard = (props) => {
         <p
           className="centered font text-shadow ps-5 edit-link"
           style={{ color: "white" }}
-          onClick={handleClick}>
+          onClick={isShare}>
           {props.property.name}
         </p>
         <OverlayTrigger placement="right" overlay={<Tooltip>Remove</Tooltip>}>

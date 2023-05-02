@@ -70,15 +70,6 @@ const NavigationBar = (props) => {
                 )}
               </li>
               <li className="nav-item">
-                {localStorage.getItem("user") !== null && (
-                  <>
-                    <Link className="nav-link font mx-3" to="/Shamir">
-                      <span className="fw-bold fs-3 font">Share</span>
-                    </Link>
-                  </>
-                )}
-              </li>
-              <li className="nav-item">
                 <LoggedIn isLogin={props.isLogin} />
               </li>
               <li className="nav-item">

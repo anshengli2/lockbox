@@ -9,9 +9,7 @@ const FileInfo = () => {
   const [privateKey, setPrivateKey] = useState("");
   const [properties] = useState(location.state.info);
   const [document, setDocument] = useState({});
-  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  const SCOPES = "https://www.googleapis.com/auth/drive";
+
   useEffect(() => {
     if (localStorage.getItem("user") !== null) {
       var key = JSON.parse(localStorage.getItem("user")).key;
@@ -20,6 +18,9 @@ const FileInfo = () => {
         .then((data) => setPrivateKey(JSON.parse(data).data));
     }
     function start() {
+      const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+      const API_KEY = process.env.REACT_APP_API_KEY;
+      const SCOPES = "https://www.googleapis.com/auth/drive";
       gapi.client
         .init({
           apiKey: API_KEY,
@@ -29,6 +30,7 @@ const FileInfo = () => {
         .then(() => {
           if (localStorage.getItem("user") !== null) {
             var accessToken = gapi.auth.getToken().access_token;
+
             fetch(
               ` https://docs.googleapis.com/v1/documents/${properties.property.id}?fields=body/content`,
               {
@@ -48,20 +50,6 @@ const FileInfo = () => {
                     data.body.content[2].paragraph.elements[0].textRun.content,
                 });
               });
-            // try {
-            //   fetch(
-            //     ` https://www.googleapis.com/drive/v3/files/${properties.property.id}/permissions`,
-            //     {
-            //       method: "GET",
-            //       headers: {
-            //         Authorization: `Bearer ${accessToken}`,
-            //         "Content-Type": "application/json",
-            //       },
-            //     }
-            //   );
-            // } catch (error) {
-            //   console.log(error);
-            // }
           }
         });
     }
@@ -88,8 +76,19 @@ const FileInfo = () => {
         `/.netlify/functions/decrypt?key=${privateKey}&nonce=${info.nonce}&header=${info.header}&ciphertext=${info.ciphertext}&tag=${info.tag}`
       );
       const decrypted_value = await decrypt_line.json();
-      console.log(decrypted_value);
       setPassword(decrypted_value.message_decoded);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const [shamirKeys, setShamirKeys] = useState({});
+  const Generate_Shamir_Keys = async () => {
+    try {
+      const decrypt_line = await fetch(
+        `/.netlify/functions/shamirKey?key=${privateKey}`
+      );
+      const decrypted_value = await decrypt_line.json();
+      setShamirKeys(decrypted_value);
     } catch (error) {
       console.error(error);
     }
@@ -137,6 +136,54 @@ const FileInfo = () => {
       </Row>
       <Row className="mt-5">
         <ShareDocument id={properties.property.id} />
+      </Row>
+      <Row className="mt-4 font">
+        <Container>
+          <h3>Share keys with others</h3>
+        </Container>
+      </Row>
+
+      <Row className="g-2 mt-3">
+        <Col xs={10} md={10}>
+          <Card>
+            <Card.Body>
+              {Object.keys(shamirKeys).length === 0
+                ? "Generate shamir key 1"
+                : shamirKeys.key1}
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col xs={8} md={2} style={{ float: "left" }}>
+          <Button
+            variant="primary"
+            className="btn btn-lg mt-2 btn-warning text-black grow font"
+            size="lg"
+            onClick={Generate_Shamir_Keys}>
+            Generate
+          </Button>
+        </Col>
+      </Row>
+      <Row className="g-2 mt-3">
+        <Col xs={10} md={10}>
+          <Card>
+            <Card.Body>
+              {Object.keys(shamirKeys).length === 0
+                ? "Generate shamir key 2"
+                : shamirKeys.key2}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row className="g-2 mt-3">
+        <Col xs={10} md={10}>
+          <Card>
+            <Card.Body>
+              {Object.keys(shamirKeys).length === 0
+                ? "Generate shamir key 3"
+                : shamirKeys.key3}
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );
