@@ -45,7 +45,7 @@ const DisplayFiles = (props) => {
       <h1 className="font fw-bold fs-1">Encrypted Files</h1>
       <Row xs={1} md={1} xxl={1}>
         {files.map((p) => (
-          <DocumentCard key={p.id} property={p} />
+          <DocumentCard key={p.id} property={p} setSubmit={props.setSubmit} />
         ))}
       </Row>
     </Container>

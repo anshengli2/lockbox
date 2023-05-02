@@ -16,7 +16,7 @@ const DocumentCard = (props) => {
         Authorization: `Bearer ${accessToken}`,
       },
     })
-      .then((response) => console.log(response))
+      .then((response) => props.setSubmit(props.submit + 1))
       .catch((error) => console.error(error));
   };
 

@@ -8,7 +8,7 @@ const Content = () => {
     <>
       <div>
         <AddInfo submit={submit} setSubmit={setSubmit} />
-        <DisplayFiles submit={submit} />
+        <DisplayFiles submit={submit} setSubmit={setSubmit} />
       </div>
     </>
   );
