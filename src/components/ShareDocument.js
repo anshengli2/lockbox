@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { gapi } from "gapi-script";
-
+import "../styles/theme.css";
 function ShareDocument(props) {
   const [email, setEmail] = useState("");
   const [response, setResponse] = useState("");

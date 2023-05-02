@@ -13,7 +13,6 @@ function LoginGoogle(props) {
         key: res.profileObj.googleId,
       })
     );
-    console.log(localStorage.getItem("user"));
     props.setLogin(true);
     navigate("/Content");
   };

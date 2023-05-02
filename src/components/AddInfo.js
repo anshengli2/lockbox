@@ -45,7 +45,7 @@ function AddInfo(props) {
         `/.netlify/functions/encrypt?key=${privateKey}&header=${inputFields.header}&dataVal=${inputFields.username}`
       );
       const encrypted_username = await encrypt_username.json();
-      console.log(encrypted_username);
+
       const encrypt_password = await fetch(
         `/.netlify/functions/encrypt?key=${privateKey}&header=${inputFields.header}&dataVal=${inputFields.password}`
       );
